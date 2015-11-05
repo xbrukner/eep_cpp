@@ -14,6 +14,18 @@ using namespace std;
 
 class ConvertorChild {
     bool finalized = false;
+    elrang_pid* pid;
+    unsigned delta;
+    unsigned delta_ts;
+    unsigned min_time;
+    unsigned max_time;
+    Saver& saver;
+    //stack
+    //options:
+    bool waits;
+    bool merged;
+
+
 public:
     bool finalized_check() {
         if (finalized) return false;
@@ -22,6 +34,12 @@ public:
 
     void finalize() {
 
+    }
+
+    void trace_ts() {
+        //always
+        //min_time = min_ts(MinTime, TS),
+        //max_time = max_ts(MaxTime, TS)
     }
 };
 
@@ -176,6 +194,26 @@ public:
         saver(filename, processes), waits(waits), merged(merged) {
 
     }
+
+    void trace_ts() {
+        //find process
+        //call trace_ts on it
+    }
+
+    void drop() {
+        //ignore
+    }
+
+    void end_of_trace() {
+        finalize_processes(processes);
+    }
+
+    void gotMessage() {
+        //...trace_ts, drop, end_of_trace
+        //OR
+        //Unknown message: ~p~n
+    }
+
 };
 
 int main(int argc, char** argv) {
